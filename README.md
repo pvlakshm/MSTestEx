@@ -5,3 +5,4 @@ MSTestEx is a set of extensions to the MSTestV2 Test Framework.
 # Documentation
 # Contributing
 # License
+MSTestEx is licensed under the [MIT license](./LICENSE).
