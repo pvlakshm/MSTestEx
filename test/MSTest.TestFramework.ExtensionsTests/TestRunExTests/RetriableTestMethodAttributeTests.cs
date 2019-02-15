@@ -32,31 +32,54 @@ namespace MSTest.TestFramework.ExtensionsTests.TestRunExTests
         }
 
         [TestMethod]
-        public void ExecuteShouldRunTheTestMultipleTimesTillItPasses()
+        public void FlakyTestShouldBeExecutedtMultipleTimesTillItPasses()
         {
-            //int count = 0;
-            //this.mockTestMethod.Setup(tm => tm.Invoke(It.IsAny<object[]>()))
-            //    .Returns(() =>
-            //    {
-            //        count++;
-            //        if (count < 3)
-            //        {
-            //            return new TestResult() { Outcome = UnitTestOutcome.Failed };
-            //        }
-            //        return new TestResult() { Outcome = UnitTestOutcome.Passed };
-            //    });
+            // Arrange
+            var mockTestMethod = new Mock<ITestMethod>();
+            var args = It.IsAny<object[]>();
+            var passingTestResult = new TestResult() { Outcome = UnitTestOutcome.Passed };
+            var failingTestResult = new TestResult() { Outcome = UnitTestOutcome.Failed };
 
-            //this.retriableTestMethod.Execute(this.mockTestMethod.Object);
-            //this.mockTestMethod.Verify(tm => tm.Invoke(It.IsAny<object[]>()), Times.Exactly(3));
+            int count = 0;
+            mockTestMethod.Setup(tm => tm.Invoke(args)).Returns(() =>
+                {
+                    count++;
+                    if (count < 3)
+                    {
+                        return failingTestResult;
+                    }
+                    return passingTestResult;
+                }
+            );
+
+            const int retryCount = 5;
+            var retriableTestMethod = new RetriableTestMethodAttribute(retryCount);
+
+            // Act
+            retriableTestMethod.Execute(mockTestMethod.Object);
+
+            // Assert (using Moq's Verify)
+            mockTestMethod.Verify(tm => tm.Invoke(args), Times.Exactly(3));
         }
 
         [TestMethod]
-        public void ExecuteShouldRunTheTestRetryCountNumberOfTimesAndReturnFailure()
+        public void FailingTestShouldBeExecutedRetryCountNumberOfTimesAndReturnFailure()
         {
-            //this.mockTestMethod.Setup(tm => tm.Invoke(It.IsAny<object[]>())).Returns(new TestResult() { Outcome = UnitTestOutcome.Failed });
-            //var tr = this.retriableTestMethod.Execute(this.mockTestMethod.Object);
-            //this.mockTestMethod.Verify(tm => tm.Invoke(It.IsAny<object[]>()), Times.Exactly(5));
-            //Assert.AreEqual(UnitTestOutcome.Failed, tr.FirstOrDefault().Outcome);
+            // Arrange
+            var mockTestMethod = new Mock<ITestMethod>();
+            var args = It.IsAny<object[]>();
+            var failingTestResult = new TestResult() { Outcome = UnitTestOutcome.Failed };
+            mockTestMethod.Setup(tm => tm.Invoke(args)).Returns(failingTestResult);
+
+            const int retryCount = 5;
+            var retriableTestMethod = new RetriableTestMethodAttribute(retryCount);
+
+            // Act
+            var tr = retriableTestMethod.Execute(mockTestMethod.Object);
+
+            // Assert (using Moq's Verify)
+            mockTestMethod.Verify(tm => tm.Invoke(args), Times.Exactly(retryCount));
+            Assert.AreEqual(UnitTestOutcome.Failed, tr.FirstOrDefault().Outcome);
         }
     }
 }

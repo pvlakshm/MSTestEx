@@ -36,12 +36,11 @@ namespace MSTest.TestFramework.Extensions.TestRunEx
 
                 if (result.Any((tr) => tr.Outcome == UnitTestOutcome.Failed))
                 {
-                    continue;
+                    if (currentCount < retryCount)
+                        continue;
                 }
-                else
-                {
-                    break;
-                }
+
+                break;
             }
 
             return result;
