@@ -25,10 +25,12 @@ namespace MSTest.TestFramework.ExtensionsTests.TestRunExTests
             var retriableTestMethod = new RetriableTestMethodAttribute(retryCount);
 
             // Act
-            retriableTestMethod.Execute(mockTestMethod.Object);
+            var tr = retriableTestMethod.Execute(mockTestMethod.Object);
 
-            // Assert (using Moq's Verify)
+            // Assert
             mockTestMethod.Verify(tm => tm.Invoke(args), Times.Once);
+            Assert.AreEqual(1, tr.Length);
+            Assert.AreEqual(UnitTestOutcome.Passed, tr.First().Outcome);
         }
 
         [TestMethod]
@@ -56,10 +58,12 @@ namespace MSTest.TestFramework.ExtensionsTests.TestRunExTests
             var retriableTestMethod = new RetriableTestMethodAttribute(retryCount);
 
             // Act
-            retriableTestMethod.Execute(mockTestMethod.Object);
+            var tr = retriableTestMethod.Execute(mockTestMethod.Object);
 
-            // Assert (using Moq's Verify)
+            // Assert
             mockTestMethod.Verify(tm => tm.Invoke(args), Times.Exactly(3));
+            Assert.AreEqual(1, tr.Length);
+            Assert.AreEqual(UnitTestOutcome.Passed, tr.First().Outcome);
         }
 
         [TestMethod]
@@ -77,9 +81,10 @@ namespace MSTest.TestFramework.ExtensionsTests.TestRunExTests
             // Act
             var tr = retriableTestMethod.Execute(mockTestMethod.Object);
 
-            // Assert (using Moq's Verify)
+            // Assert
             mockTestMethod.Verify(tm => tm.Invoke(args), Times.Exactly(retryCount));
-            Assert.AreEqual(UnitTestOutcome.Failed, tr.FirstOrDefault().Outcome);
+            Assert.AreEqual(1, tr.Length);
+            Assert.AreEqual(UnitTestOutcome.Failed, tr.First().Outcome);
         }
     }
 }
