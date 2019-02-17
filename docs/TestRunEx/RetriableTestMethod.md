@@ -1,4 +1,6 @@
 # RetriableTestMethod
+input - int representing the retry count.
+
 ## Usage
 - add a NuGet reference to the MSTestEx package.
 - Create / open an MSTestV2 based test project
