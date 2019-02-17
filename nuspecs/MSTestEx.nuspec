@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
-    <id>MSTest.TestFramework.Extensions</id>
+    <id>MSTestEx</id>
     <version>1.0.0-preview</version>
     <authors>pvlakshm</authors>
     <owners>pvlakshm</owners>
