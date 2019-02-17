@@ -6,7 +6,7 @@ MSTestEx is a set of extensions to the MSTestV2 Test Framework.
 ## Attribute Extensions
 ## Assert Extensions
 ## Test Run Extensions
- - [RetriableTestMethod](docs/TestRunEx/RetraibleTestMethod.md)
+ - [RetriableTestMethod](docs/TestRunEx/RetriableTestMethod.md)
 # Contributing
 # License
 MSTestEx is licensed under the [MIT license](./LICENSE).
