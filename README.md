@@ -1,10 +1,7 @@
-# Build Status
-[![Build status](https://pvlakshm.visualstudio.com/MSTestEx/_apis/build/status/MSTestEx-.NET%20Desktop-CI)](https://pvlakshm.visualstudio.com/MSTestEx/_build/latest?definitionId=95)
-
-# Latest build
-[![#](https://img.shields.io/nuget/vpre/MSTestEx.svg?style=flat)]
-
 # MSTestEx - MSTest V2 Test Framework Extensions
+[![Build status](https://pvlakshm.visualstudio.com/MSTestEx/_apis/build/status/MSTestEx-.NET%20Desktop-CI)](https://pvlakshm.visualstudio.com/MSTestEx/_build/latest?definitionId=95)
+[![NuGet](https://img.shields.io/nuget/vpre/MSTestEx.svg?style=flat)]
+
 MSTestEx is a set of extensions to the MSTestV2 Test Framework.
 
 # Documentation
