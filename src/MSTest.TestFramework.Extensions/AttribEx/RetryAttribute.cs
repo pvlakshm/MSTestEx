@@ -16,8 +16,10 @@ namespace MSTest.TestFramework.Extensions.AttributeEx
 
         private static string sanitize(int retryCount, int min, int max)
         {
-            if (min < retryCount && retryCount > max)
+            if (retryCount < min && max < retryCount)
+            {
                 retryCount = min;
+            }
 
             return retryCount.ToString();
         }
