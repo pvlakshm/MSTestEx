@@ -12,42 +12,49 @@ namespace MSTest.TestFramework.Extensions.TestMethodEx
         public override TestResult[] Execute(ITestMethod testMethod)
         {
             TestResult[] result = null;
-            MethodInfo m = testMethod.MethodInfo;
-            var attr = m.GetCustomAttribute(typeof(RetryAttribute), false);
+            Attribute[] attr = testMethod.GetAllAttributes(false);
 
-            if (attr != null)
-            {
-                RetryAttribute retryAttr = (RetryAttribute)attr;
-                int retryCount = int.Parse(retryAttr.Value);
-
-                var currentCount = 0;
-
-                while (currentCount <= retryCount)
-                {
-                    try
-                    {
-                        result = base.Execute(testMethod);
-                    }
-                    catch (Exception) { }
-
-                    currentCount++;
-
-                    if (result.Any((tr) => tr.Outcome == UnitTestOutcome.Failed))
-                    {
-                        if (currentCount < retryCount)
-                            continue;
-                    }
-
-                    break;
-                }
-
-                return result;
-            }
-            else
+            if (attr == null)
             {
                 result = base.Execute(testMethod);
                 return result;
             }
+
+            foreach (Attribute a in attr)
+            {
+                if (a is RetryAttribute)
+                {
+                    RetryAttribute retryAttr = (RetryAttribute)a;
+                    int retryCount = int.Parse(retryAttr.Value);
+
+                    var currentCount = 0;
+
+                    while (currentCount < retryCount)
+                    {
+                        try
+                        {
+                            result = base.Execute(testMethod);
+                        }
+                        catch (Exception) { }
+
+                        currentCount++;
+
+                        if (result.Any((tr) => tr.Outcome == UnitTestOutcome.Failed))
+                        {
+                            continue;
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+
+                    return result;
+                }
+            }
+
+            result = base.Execute(testMethod);
+            return result;
         }
     }
 }
