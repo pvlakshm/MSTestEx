@@ -5,7 +5,7 @@ using Moq;
 using System.Linq;
 using System;
 
-namespace MSTest.TestFramework.ExtensionsTests.TestRunExTests
+namespace MSTest.TestFramework.ExtensionsTests.AttributeExTests
 {
     [TestClass]
     public class RetryAttributeTests
