@@ -11,6 +11,10 @@ namespace MSTest.TestFramework.Extensions.TestMethodEx
     {
         public override TestResult[] Execute(ITestMethod testMethod)
         {
+            // NOTE
+            // This implementation will need to be refactored as we add more
+            // execution variations.
+
             TestResult[] result = null;
             Attribute[] attr = testMethod.GetAllAttributes(false);
 
