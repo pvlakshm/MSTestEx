@@ -3,7 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace MSTest.TestFramework.Extensions.AttributeEx
 {
-    [AttributeUsage(AttributeTargets.Method, AllowMultiple = true)]
+    [AttributeUsage(AttributeTargets.Method, AllowMultiple = false)]
     public class RetryAttribute : TestPropertyAttribute
     {
         private const int MIN_RETRY_COUNT = 1;
