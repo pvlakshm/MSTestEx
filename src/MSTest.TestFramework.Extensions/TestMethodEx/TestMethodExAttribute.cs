@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MSTest.TestFramework.Extensions.AttributeEx;
-using System.Reflection;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace MSTest.TestFramework.Extensions.TestMethodEx
@@ -69,7 +69,7 @@ namespace MSTest.TestFramework.Extensions.TestMethodEx
             // execution variations.
 
             int retryCount = 1;
-            Type eet = typeof(Exception);
+            Type eet = null;
             Attribute[] attr = testMethod.GetAllAttributes(false);
 
             if (attr != null)
@@ -84,13 +84,14 @@ namespace MSTest.TestFramework.Extensions.TestMethodEx
 
                     if (a is ExpectedExceptionAttribute)
                     {
-                        ExpectedExceptionAttribute eea = (ExpectedExceptionAttribute) a;
+                        ExpectedExceptionAttribute eea = (ExpectedExceptionAttribute)a;
                         eet = eea.ExceptionType;
                     }
                 }
             }
 
-            TestResult[] result = null;
+            TestResult[] results = null;
+            var res = new List<TestResult>();
 
             var currentCount = 0;
             while (currentCount < retryCount)
@@ -99,18 +100,33 @@ namespace MSTest.TestFramework.Extensions.TestMethodEx
 
                 try
                 {
-                    result = base.Execute(testMethod);
+                    results = base.Execute(testMethod);
                 }
                 catch (Exception e)
                 {
+                    if (eet == null)
+                    {
+                        break;
+                    }
+
                     if (e.GetType().Equals(eet) == false)
                     {
-                        throw;
+                        break;
                     }
                 }
 
-                if ((result == null) ||
-                       (result.Any((tr) => tr.Outcome == UnitTestOutcome.Failed)))
+                if (results == null)
+                {
+                    continue;
+                }
+
+                foreach (var testResult in results)
+                {
+                    testResult.DisplayName = $"{testMethod.TestMethodName} - Execution number {currentCount}";
+                }
+                res.AddRange(results);
+
+                if (results.Any((tr) => tr.Outcome == UnitTestOutcome.Failed))
                 {
                     continue;
                 }
@@ -118,7 +134,7 @@ namespace MSTest.TestFramework.Extensions.TestMethodEx
                 break;
             }
 
-            return result;
+            return res.ToArray();
         }
     }
 }

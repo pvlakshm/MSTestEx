@@ -32,7 +32,7 @@ namespace MSTest.TestFramework.ExtensionsTests.AttributeExTests
                 {
                     int numerator = 1;
                     int denominator = 0;
-                    int val = numerator / denominator;
+                    int val = numerator / denominator; // raise a DivideByZeroException
                     return new TestResult() { Outcome = UnitTestOutcome.Passed };
                 }
             );
@@ -44,9 +44,8 @@ namespace MSTest.TestFramework.ExtensionsTests.AttributeExTests
 
             // Assert
             mockTestMethodWithException.Verify(tm => tm.Invoke(args), Times.Exactly(RETRY_COUNT));
-            Assert.IsNull(tr);
+            Assert.AreEqual(0, tr.Length);
         }
-
 
         [TestMethod]
         public void Ex_TestWithUnexpectedExceptionExecutedOnlyOnce()
@@ -75,8 +74,8 @@ namespace MSTest.TestFramework.ExtensionsTests.AttributeExTests
             var tr = retriableTestMethod.Execute(mockTestMethodWithException.Object);
 
             // Assert
-            mockTestMethodWithException.Verify(tm => tm.Invoke(args), Times.Exactly(RETRY_COUNT));
-            Assert.IsNull(tr);
+            mockTestMethodWithException.Verify(tm => tm.Invoke(args), Times.Once);
+            Assert.AreEqual(0, tr.Length);
         }
 
         [TestMethod]
@@ -105,7 +104,7 @@ namespace MSTest.TestFramework.ExtensionsTests.AttributeExTests
             // Assert
             mockPassingTestMethod.Verify(tm => tm.Invoke(args), Times.Once);
             Assert.AreEqual(1, tr.Length);
-            Assert.AreEqual(UnitTestOutcome.Passed, tr.First().Outcome);
+            Assert.AreEqual(UnitTestOutcome.Passed, tr[0].Outcome);
         }
 
         [TestMethod]
@@ -133,8 +132,11 @@ namespace MSTest.TestFramework.ExtensionsTests.AttributeExTests
 
             // Assert
             mockPassingTestMethod.Verify(tm => tm.Invoke(args), Times.Exactly(RETRY_COUNT));
-            Assert.AreEqual(1, tr.Length);
-            Assert.AreEqual(UnitTestOutcome.Failed, tr.First().Outcome);
+            Assert.AreEqual(RETRY_COUNT, tr.Length);
+            for (int i = 0; i < RETRY_COUNT; i++)
+            {
+                Assert.AreEqual(UnitTestOutcome.Failed, tr[i].Outcome);
+            }
         }
 
         [TestMethodEx]
@@ -173,8 +175,13 @@ namespace MSTest.TestFramework.ExtensionsTests.AttributeExTests
 
             // Assert
             mockFlakyTestMethod.Verify(tm => tm.Invoke(args), Times.Exactly(TRIGGER));
-            Assert.AreEqual(1, tr.Length);
-            Assert.AreEqual(UnitTestOutcome.Passed, tr.First().Outcome);
+            Assert.AreEqual(TRIGGER, tr.Length);
+            int i = 0;
+            for (i = 0; i < TRIGGER-1; i++)
+            {
+                Assert.AreEqual(UnitTestOutcome.Failed, tr[i].Outcome);
+            }
+            Assert.AreEqual(UnitTestOutcome.Passed, tr[i].Outcome);
         }
 
         [TestMethod]
@@ -213,8 +220,11 @@ namespace MSTest.TestFramework.ExtensionsTests.AttributeExTests
 
             // Assert
             mockFlakyTestMethod.Verify(tm => tm.Invoke(args), Times.Exactly(RETRY_COUNT));
-            Assert.AreEqual(1, tr.Length);
-            Assert.AreEqual(UnitTestOutcome.Failed, tr.First().Outcome);
+            Assert.AreEqual(RETRY_COUNT, tr.Length);
+            for (int i = 0; i < RETRY_COUNT; i++)
+            {
+                Assert.AreEqual(UnitTestOutcome.Failed, tr[i].Outcome);
+            }
         }
     }
 }
