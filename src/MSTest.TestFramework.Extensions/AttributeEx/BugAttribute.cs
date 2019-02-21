@@ -3,8 +3,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace MSTest.TestFramework.Extensions.AttributeEx
 {
-    /// <summary>Add a bug id to a test method.</summary>
-    /// <param name="bugId">bug ID as an integer</param>"
+    /// <summary>The BugAttribute add a bug ID to a test method.</summary>
+    /// <param name="bugId">int representing the bug ID.</param>"
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = true)]
     public class BugAttribute : TestPropertyAttribute
     {
