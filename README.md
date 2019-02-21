@@ -6,10 +6,10 @@ MSTestEx is a set of extensions to the MSTestV2 Test Framework.
 
 # Documentation
 ## Attribute Extensions
- - [AuthorAttribute](docs/AttribEx/AuthorAttribute.md)
- - [BugAttribute](docs/AttribEx/BugAttribute.md)
- - [SmokeTestAttribute](docs/AttribEx/SmokeTestAttribute.md)
- - [RetryAttribute](docs/AttribEx/RetryAttribute.md)
+ - [AuthorAttribute](docs/AttributeEx/AuthorAttribute.md)
+ - [BugAttribute](docs/AttributeEx/BugAttribute.md)
+ - [SmokeTestAttribute](docs/AttributeEx/SmokeTestAttribute.md)
+ - [RetryAttribute](docs/AttributeEx/RetryAttribute.md)
 
 ## TestMethod Extensions
  - [TestMethodExAttribute](docs/TestMethodEx/TestMethodExAttribute.md)
