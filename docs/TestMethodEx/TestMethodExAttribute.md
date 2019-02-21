@@ -1,9 +1,13 @@
-# TestMethodExAttriute
+# TestMethodExAttribute
+The __TestMethodExAttribute__ extends the TestMethodAttribute and enables custom execution.  
+Other attributes like __RetryAttribute__ can then be added to control execution.
+
+## Arguments
 input - none.
 
 ## Usage
 - add a NuGet reference to the MSTestEx package.
-- Create / open an MSTestV2 based test project
+- create / open an MSTestV2 based test project.
 - add the following:
 ```
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -14,7 +18,7 @@ namespace UnitTestProject2
     [TestClass]
     public class UnitTest1
     {
-		[TestMethodEx]
+        [TestMethodEx]
         public void TestMethod1()
         {
             // Test logic
@@ -22,6 +26,3 @@ namespace UnitTestProject2
     }
 }
 ```
-## Semantics
-TestMethod1() has been annotated as a TestMethod**__Ex__**.
-Attributes like Retry, etc. can now be used to control test execution.

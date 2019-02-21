@@ -1,13 +1,13 @@
-# BugAttriute
-The __BugAttribute__ add a bug ID to a test method.  
+# SmokeTestAttribute
+The __SmokeTestAttribute__ marks a test method as a smoke test.
 This now integrates with the filter / search experiences in the Visual Studio Test Explorer.
 
 ## Arguments
-input - int representing the bug ID.
+input - none.
 
 ## Usage
 - add a NuGet reference to the MSTestEx package.
-- Create / open an MSTestV2 based test project
+- create / open an MSTestV2 based test project.
 - add the following:
 ```
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -18,8 +18,8 @@ namespace UnitTestProject2
     [TestClass]
     public class UnitTest1
     {
-		[TestMethod]
-        [Bug(101)]
+        [TestMethod]
+        [SmokeTest]
         public void TestMethod1()
         {
             // Test logic
