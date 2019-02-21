@@ -1,4 +1,8 @@
 # SmokeTestAttribute
+The __SmokeTestAttribute__ marks a test method as a smoke test.
+This now integrates with the filter / search experiences in the Visual Studio Test Explorer.
+
+## Arguments
 input - none.
 
 ## Usage
@@ -23,9 +27,6 @@ namespace UnitTestProject2
     }
 }
 ```
-## Semantics
-TestMethod1() has been annotated asa smoke test.
-This now integrates with the filter / search experiences in the Visual Studio Test Explorer.
 
 ## Notes
 Filtering by this attribute is not yet supported from vstest.console.exe.

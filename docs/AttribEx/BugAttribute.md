@@ -1,4 +1,8 @@
 # BugAttriute
+The __BugAttribute__ add a bug ID to a test method.  
+This now integrates with the filter / search experiences in the Visual Studio Test Explorer.
+
+## Arguments
 input - int representing the bug ID.
 
 ## Usage
@@ -23,9 +27,6 @@ namespace UnitTestProject2
     }
 }
 ```
-## Semantics
-TestMethod1() has been annotated with an bug ID.
-This now integrates with the filter / search experiences in the Visual Studio Test Explorer.
 
 ## Notes
 Filtering by this attribute is not yet supported from vstest.console.exe.

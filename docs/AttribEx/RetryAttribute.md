@@ -1,4 +1,8 @@
-# RetryAttribyute
+# RetryAttribute
+- The __RetryAttribute__ is used on a test method to specify that it should be rerun if it fails, up to a maximum number of times.
+- If the test has an unexpected exception, it is not retried. Only assertion failures or ExpectedExceptions can trigger a retry.
+
+## Arguments
 input - int representing the retry count.
 
 ## Usage
@@ -23,9 +27,6 @@ namespace UnitTestProject2
     }
 }
 ```
-## Semantics
-TestMethod1() has been annotated as a retriable test method, with a retry count of 5. Each execution of this test method will be retried up to a maximum of 5 times. If any of those tries return a successful test outcome, no further tries will be made, and the test will be treated as a passing test.
 
 ## Notes
  - Note that any surrounding TestInitialize and TestCleanup methods will be executed only once.
- - If a test has an unexpected exception, it is not retried. Only assertion failures or ExpectedExceptions can trigger a retry. 

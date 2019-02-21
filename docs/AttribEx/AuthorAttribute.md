@@ -1,4 +1,8 @@
 # AuthorAttriute
+The __AuthorAttribute__ adds information about the author of a test method.  
+This now integrates with the filter / search experiences in the Visual Studio Test Explorer.
+
+## Arguments
 input - string representing the author name.
 
 ## Usage
@@ -23,9 +27,6 @@ namespace UnitTestProject2
     }
 }
 ```
-## Semantics
-TestMethod1() has been annotated with an author name.
-This now integrates with the filter / search experiences in the Visual Studio Test Explorer.
 
 ## Notes
 Filtering by this attribute is not yet supported from vstest.console.exe.
