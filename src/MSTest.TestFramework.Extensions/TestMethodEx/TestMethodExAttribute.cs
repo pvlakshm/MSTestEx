@@ -43,7 +43,8 @@ namespace MSTest.TestFramework.Extensions.TestMethodEx
 
                         currentCount++;
 
-                        if (result.Any((tr) => tr.Outcome == UnitTestOutcome.Failed))
+                        if ((result == null) ||
+                               (result.Any((tr) => tr.Outcome == UnitTestOutcome.Failed)))
                         {
                             continue;
                         }

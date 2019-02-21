@@ -117,14 +117,14 @@ namespace MSTest.TestFramework.ExtensionsTests.AttributeExTests
             int count = 0;
             const int TRIGGER = 8;
             mockFlakyTestMethod.Setup(tm => tm.Invoke(args)).Returns(() =>
-            {
-                count++;
-                if (count < TRIGGER)
                 {
-                    return failingTestResult;
+                    count++;
+                    if (count < TRIGGER)
+                    {
+                        return failingTestResult;
+                    }
+                    return passingTestResult;
                 }
-                return passingTestResult;
-            }
             );
 
             const int RETRY_COUNT = 5;
@@ -142,6 +142,37 @@ namespace MSTest.TestFramework.ExtensionsTests.AttributeExTests
             mockFlakyTestMethod.Verify(tm => tm.Invoke(args), Times.Exactly(RETRY_COUNT));
             Assert.AreEqual(1, tr.Length);
             Assert.AreEqual(UnitTestOutcome.Failed, tr.First().Outcome);
+        }
+
+        [TestMethod]
+        public void Ex_ExceptionsIgnoredAndTestExecutedRetryCountNumberOfTimes()
+        {
+            // Arrange
+            var mockTestMethodWithException = new Mock<ITestMethod>();
+
+            const int RETRY_COUNT = 5;
+            mockTestMethodWithException.Setup(tm => tm.GetAllAttributes(false)).Returns(() =>
+                {
+                    Attribute[] attr = { new RetryAttribute(RETRY_COUNT) };
+                    return attr;
+                }
+            );
+
+            var args = It.IsAny<object[]>();
+            mockTestMethodWithException.Setup(tm => tm.Invoke(args)).Returns(() =>
+                {
+                    throw new Exception();
+                }
+            );
+
+            var retriableTestMethod = new TestMethodExAttribute();
+
+            // Act
+            var tr = retriableTestMethod.Execute(mockTestMethodWithException.Object);
+
+            // Assert
+            mockTestMethodWithException.Verify(tm => tm.Invoke(args), Times.Exactly(RETRY_COUNT));
+            Assert.IsNull(tr);
         }
     }
 }
