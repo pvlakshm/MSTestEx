@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>MSTestEx</id>
-    <version>1.0.1-preview</version>
+    <version>1.0.2-preview</version>
     <authors>pvlakshm</authors>
     <owners>pvlakshm</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
@@ -18,6 +18,6 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="..\src\MSTest.TestFramework.Extensions\bin\Release\netstandard2.0\MSTest.TestFramework.Extensions.dll" target="lib\netstandard2.0\MSTest.TestFramework.Extensions.dll" />
+    <file src="..\src\MSTest.TestFramework.Extensions\bin\Release\netstandard1.0\MSTest.TestFramework.Extensions.dll" target="lib\netstandard1.0\MSTest.TestFramework.Extensions.dll" />
   </files>
 </package>

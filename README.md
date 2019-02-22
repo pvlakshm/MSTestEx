@@ -14,10 +14,6 @@ MSTestEx is a set of extensions to the MSTestV2 Test Framework.
 ## TestMethod Extensions
  - [TestMethodExAttribute](docs/TestMethodEx/TestMethodExAttribute.md)
 
-## Assert Extensions
-## Test Run Extensions
- - [RetriableTestMethod](docs/TestRunEx/RetriableTestMethod.md)
-
 # Contributing
 There are many ways to contribute to MSTestEx
 - [Submit issues](https://github.com/pvlakshm/MSTestEx/issues) and help verify fixes as they are checked in.
