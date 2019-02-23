@@ -36,7 +36,7 @@ namespace MSTest.TestFramework.ExtensionsTests.AttributeExTests
             // Assert
             mockPassingTestMethod.Verify(tm => tm.Invoke(args), Times.Once);
             Assert.AreEqual(1, tr.Length);
-            Assert.AreEqual(UnitTestOutcome.Passed, tr.First().Outcome);
+            Assert.AreEqual(UnitTestOutcome.Passed, tr[0].Outcome);
         }
     }
 }
