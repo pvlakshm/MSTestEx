@@ -10,7 +10,7 @@ namespace MSTest.TestFramework.ExtensionsTests.AttributeExTests
     public class RetryAttributeTests
     {
         [TestMethod()]
-        public void TestMethodWithExpectedExceptionIsExecutedRetryCountNumberOfTimes()
+        public void TestMethodWithExpectedExceptionExecutedRetryCountNumberOfTimes()
         {
             // Arrange
             var mockTestMethodWithException = new Mock<ITestMethod>();
@@ -112,7 +112,7 @@ namespace MSTest.TestFramework.ExtensionsTests.AttributeExTests
         }
 
         [TestMethod]
-        public void PassingTestMethodIsExecutedOnlyOnceAndReturnsPassed()
+        public void PassingTestMethodExecutedOnlyOnceAndReturnsPassed()
         {
             // Arrange
             var mockPassingTestMethod = new Mock<ITestMethod>();
@@ -141,7 +141,7 @@ namespace MSTest.TestFramework.ExtensionsTests.AttributeExTests
         }
 
         [TestMethod]
-        public void FailingTestMethodIsExecutedRetryCountNumberOfTimesAndReturnsFailed()
+        public void FailingTestMethodExecutedRetryCountNumberOfTimesAndReturnsFailed()
         {
             // Arrange
             var mockPassingTestMethod = new Mock<ITestMethod>();
@@ -173,7 +173,7 @@ namespace MSTest.TestFramework.ExtensionsTests.AttributeExTests
         }
 
         [TestMethodEx]
-        public void FlakyPassingTestMethodIsExecutedtMultipleTimesAndReturnsPassed()
+        public void FlakyPassingTestMethodExecutedtMultipleTimesAndReturnsPassed()
         {
             // Arrange
             var mockFlakyTestMethod = new Mock<ITestMethod>();
@@ -218,7 +218,7 @@ namespace MSTest.TestFramework.ExtensionsTests.AttributeExTests
         }
 
         [TestMethod]
-        public void FlakyTestMethodIsExecutedtNoMoreThanRetryCountNumberOfTimesAndReturnsFailed()
+        public void FlakyTestMethodExecutedtNoMoreThanRetryCountNumberOfTimesAndReturnsFailed()
         {
             // Arrange
             var mockFlakyTestMethod = new Mock<ITestMethod>();

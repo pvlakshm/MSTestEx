@@ -11,7 +11,7 @@ namespace MSTest.TestFramework.ExtensionsTests.AttributeExTests
     public class AuthorAttributeTests
     {
         [TestMethod]
-        public void TestMethodWithOneAuthorAttributeIsExecutedOnlyOnce()
+        public void TestMethodWithOneAuthorAttributeExecutedOnlyOnce()
         {
             // Arrange
             var mockPassingTestMethod = new Mock<ITestMethod>();
@@ -40,7 +40,7 @@ namespace MSTest.TestFramework.ExtensionsTests.AttributeExTests
         }
 
         [TestMethod]
-        public void TestMethodWithMultipleAuthorAttributeIsExecutedOnlyOnce()
+        public void TestMethodWithMultipleAuthorAttributeExecutedOnlyOnce()
         {
             // Arrange
             var mockPassingTestMethod = new Mock<ITestMethod>();
