@@ -2,7 +2,6 @@
 using MSTest.TestFramework.Extensions.AttributeEx;
 using MSTest.TestFramework.Extensions.TestMethodEx;
 using Moq;
-using System.Linq;
 using System;
 
 namespace MSTest.TestFramework.ExtensionsTests.AttributeExTests
@@ -11,7 +10,7 @@ namespace MSTest.TestFramework.ExtensionsTests.AttributeExTests
     public class RetryAttributeTests
     {
         [TestMethod()]
-        public void Ex_TestWithExpectedExceptionExecutedRetryCountNumberOfTimes()
+        public void TestMethodWithExpectedExceptionIsExecutedRetryCountNumberOfTimes()
         {
             // Arrange
             var mockTestMethodWithException = new Mock<ITestMethod>();
@@ -48,7 +47,7 @@ namespace MSTest.TestFramework.ExtensionsTests.AttributeExTests
         }
 
         [TestMethod]
-        public void Ex_TestWithUnexpectedExceptionExecutedOnlyOnce()
+        public void TestMethodWithExceptionExecutedOnlyOnce()
         {
             // Arrange
             var mockTestMethodWithException = new Mock<ITestMethod>();
@@ -79,7 +78,41 @@ namespace MSTest.TestFramework.ExtensionsTests.AttributeExTests
         }
 
         [TestMethod]
-        public void Ex_PassingTestShouldGetExecutedOnlyOnce()
+        public void TestMethodWithUnexpectedExceptionExecutedOnlyOnce()
+        {
+            // Arrange
+            var mockTestMethodWithException = new Mock<ITestMethod>();
+
+            const int RETRY_COUNT = 5;
+            mockTestMethodWithException.Setup(tm => tm.GetAllAttributes(false)).Returns(() =>
+                {
+                    Attribute[] attr = {
+                        new RetryAttribute(RETRY_COUNT),
+                        new ExpectedExceptionAttribute(typeof(System.NullReferenceException))
+                    };
+                    return attr;
+                }
+            );
+
+            var args = It.IsAny<object[]>();
+            mockTestMethodWithException.Setup(tm => tm.Invoke(args)).Returns(() =>
+            {
+                throw new Exception();
+            }
+            );
+
+            var retriableTestMethod = new TestMethodExAttribute();
+
+            // Act
+            var tr = retriableTestMethod.Execute(mockTestMethodWithException.Object);
+
+            // Assert
+            mockTestMethodWithException.Verify(tm => tm.Invoke(args), Times.Once);
+            Assert.AreEqual(0, tr.Length);
+        }
+
+        [TestMethod]
+        public void PassingTestMethodIsExecutedOnlyOnceAndReturnsPassed()
         {
             // Arrange
             var mockPassingTestMethod = new Mock<ITestMethod>();
@@ -108,7 +141,7 @@ namespace MSTest.TestFramework.ExtensionsTests.AttributeExTests
         }
 
         [TestMethod]
-        public void Ex_FailingTestShouldBeExecutedRetryCountNumberOfTimesAndReturnFailure()
+        public void FailingTestMethodIsExecutedRetryCountNumberOfTimesAndReturnsFailed()
         {
             // Arrange
             var mockPassingTestMethod = new Mock<ITestMethod>();
@@ -140,7 +173,7 @@ namespace MSTest.TestFramework.ExtensionsTests.AttributeExTests
         }
 
         [TestMethodEx]
-        public void Ex_FlakyTestShouldBeExecutedtMultipleTimesTillItPasses()
+        public void FlakyPassingTestMethodIsExecutedtMultipleTimesAndReturnsPassed()
         {
             // Arrange
             var mockFlakyTestMethod = new Mock<ITestMethod>();
@@ -185,7 +218,7 @@ namespace MSTest.TestFramework.ExtensionsTests.AttributeExTests
         }
 
         [TestMethod]
-        public void Ex_FlakyTestShouldBeExecutedtNoMoreThanRetryCountNumberOfTimes()
+        public void FlakyTestMethodIsExecutedtNoMoreThanRetryCountNumberOfTimesAndReturnsFailed()
         {
             // Arrange
             var mockFlakyTestMethod = new Mock<ITestMethod>();

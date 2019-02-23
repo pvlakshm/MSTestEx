@@ -11,7 +11,7 @@ namespace MSTest.TestFramework.ExtensionsTests.AttributeExTests
     public class BugAttributeTests
     {
         [TestMethod]
-        public void TestCanHaveSingleBugAttributeAndIsExecutedOnlyOnce()
+        public void TestMethodWithOneBugAttributeIsExecutedOnlyOnce()
         {
             // Arrange
             var mockPassingTestMethod = new Mock<ITestMethod>();
@@ -40,7 +40,7 @@ namespace MSTest.TestFramework.ExtensionsTests.AttributeExTests
         }
 
         [TestMethod]
-        public void TestCanHaveMultipleBugAttributeAndIsExecutedOnlyOnce()
+        public void TestMethodWithMultipleBugAttributeIsExecutedOnlyOnce()
         {
             // Arrange
             var mockPassingTestMethod = new Mock<ITestMethod>();

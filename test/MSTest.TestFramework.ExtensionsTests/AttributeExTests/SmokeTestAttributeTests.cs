@@ -11,7 +11,7 @@ namespace MSTest.TestFramework.ExtensionsTests.AttributeExTests
     public class SmokeTestAttributeTests
     {
         [TestMethod]
-        public void TestCanHaveSingleSmokeTestAttributeAndIsExecutedOnlyOnce()
+        public void TestMethodWithOneSmokeTestAttributeAndIsExecutedOnlyOnce()
         {
             // Arrange
             var mockPassingTestMethod = new Mock<ITestMethod>();
