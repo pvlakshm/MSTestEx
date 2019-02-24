@@ -178,19 +178,19 @@ namespace MSTest.TestFramework.ExtensionsTests.AttributeExTests
             // Arrange
             var mockFlakyTestMethod = new Mock<ITestMethod>();
             var args = It.IsAny<object[]>();
-            var passingTestResult = new TestResult() { Outcome = UnitTestOutcome.Passed };
-            var failingTestResult = new TestResult() { Outcome = UnitTestOutcome.Failed };
+            TestResult[] expected =
+                {
+                    new TestResult() { Outcome = UnitTestOutcome.Failed},
+                    new TestResult() { Outcome = UnitTestOutcome.Failed},
+                    new TestResult() { Outcome = UnitTestOutcome.Passed},
+                };
 
             int count = 0;
-            const int TRIGGER = 3;
             mockFlakyTestMethod.Setup(tm => tm.Invoke(args)).Returns(() =>
                 {
+                    TestResult t = expected[count];
                     count++;
-                    if (count < TRIGGER)
-                    {
-                        return failingTestResult;
-                    }
-                    return passingTestResult;
+                    return t;
                 }
             );
 
@@ -207,14 +207,8 @@ namespace MSTest.TestFramework.ExtensionsTests.AttributeExTests
             var tr = retriableTestMethod.Execute(mockFlakyTestMethod.Object);
 
             // Assert
-            mockFlakyTestMethod.Verify(tm => tm.Invoke(args), Times.Exactly(TRIGGER));
-            Assert.AreEqual(TRIGGER, tr.Length);
-            int i = 0;
-            for (i = 0; i < TRIGGER-1; i++)
-            {
-                Assert.AreEqual(UnitTestOutcome.Failed, tr[i].Outcome);
-            }
-            Assert.AreEqual(UnitTestOutcome.Passed, tr[i].Outcome);
+            mockFlakyTestMethod.Verify(tm => tm.Invoke(args), Times.Exactly(expected.Length));
+            CollectionAssert.AreEqual(expected, tr);
         }
 
         [TestMethod]
