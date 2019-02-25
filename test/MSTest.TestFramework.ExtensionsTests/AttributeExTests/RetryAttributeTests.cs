@@ -14,6 +14,7 @@ namespace MSTest.TestFramework.ExtensionsTests.AttributeExTests
         {
             // Arrange
             var mockTestMethodWithException = new Mock<ITestMethod>();
+            TestResult[] expected = { };
 
             const int RETRY_COUNT = 5;
             mockTestMethodWithException.Setup(tm => tm.GetAllAttributes(false)).Returns(() =>
@@ -43,7 +44,7 @@ namespace MSTest.TestFramework.ExtensionsTests.AttributeExTests
 
             // Assert
             mockTestMethodWithException.Verify(tm => tm.Invoke(args), Times.Exactly(RETRY_COUNT));
-            Assert.AreEqual(0, tr.Length);
+            CollectionAssert.AreEqual(expected, tr);
         }
 
         [TestMethod]
@@ -51,6 +52,7 @@ namespace MSTest.TestFramework.ExtensionsTests.AttributeExTests
         {
             // Arrange
             var mockTestMethodWithException = new Mock<ITestMethod>();
+            TestResult[] expected = { };
 
             const int RETRY_COUNT = 5;
             mockTestMethodWithException.Setup(tm => tm.GetAllAttributes(false)).Returns(() =>
@@ -74,7 +76,7 @@ namespace MSTest.TestFramework.ExtensionsTests.AttributeExTests
 
             // Assert
             mockTestMethodWithException.Verify(tm => tm.Invoke(args), Times.Once);
-            Assert.AreEqual(0, tr.Length);
+            CollectionAssert.AreEqual(expected, tr);
         }
 
         [TestMethod]
@@ -82,6 +84,7 @@ namespace MSTest.TestFramework.ExtensionsTests.AttributeExTests
         {
             // Arrange
             var mockTestMethodWithException = new Mock<ITestMethod>();
+            TestResult[] expected = { };
 
             const int RETRY_COUNT = 5;
             mockTestMethodWithException.Setup(tm => tm.GetAllAttributes(false)).Returns(() =>
@@ -108,7 +111,7 @@ namespace MSTest.TestFramework.ExtensionsTests.AttributeExTests
 
             // Assert
             mockTestMethodWithException.Verify(tm => tm.Invoke(args), Times.Once);
-            Assert.AreEqual(0, tr.Length);
+            CollectionAssert.AreEqual(expected, tr);
         }
 
         [TestMethod]
@@ -116,10 +119,13 @@ namespace MSTest.TestFramework.ExtensionsTests.AttributeExTests
         {
             // Arrange
             var mockPassingTestMethod = new Mock<ITestMethod>();
+            TestResult[] expected =
+                {
+                    new TestResult() { Outcome = UnitTestOutcome.Passed}
+                };
 
             var args = It.IsAny<object[]>();
-            var passingTestResult = new TestResult() { Outcome = UnitTestOutcome.Passed };
-            mockPassingTestMethod.Setup(tm => tm.Invoke(args)).Returns(passingTestResult);
+            mockPassingTestMethod.Setup(tm => tm.Invoke(args)).Returns(expected[0]);
 
             const int RETRY_COUNT = 5;
             mockPassingTestMethod.Setup(tm => tm.GetAllAttributes(false)).Returns(() =>
@@ -136,8 +142,7 @@ namespace MSTest.TestFramework.ExtensionsTests.AttributeExTests
 
             // Assert
             mockPassingTestMethod.Verify(tm => tm.Invoke(args), Times.Once);
-            Assert.AreEqual(1, tr.Length);
-            Assert.AreEqual(UnitTestOutcome.Passed, tr[0].Outcome);
+            CollectionAssert.AreEqual(expected, tr);
         }
 
         [TestMethod]
@@ -145,10 +150,26 @@ namespace MSTest.TestFramework.ExtensionsTests.AttributeExTests
         {
             // Arrange
             var mockPassingTestMethod = new Mock<ITestMethod>();
+            TestResult[] expected =
+                {
+                    new TestResult() { Outcome = UnitTestOutcome.Failed},
+                    new TestResult() { Outcome = UnitTestOutcome.Failed},
+                    new TestResult() { Outcome = UnitTestOutcome.Failed},
+                    new TestResult() { Outcome = UnitTestOutcome.Failed},
+                    new TestResult() { Outcome = UnitTestOutcome.Failed}
+                };
 
             var args = It.IsAny<object[]>();
-            var failingTestResult = new TestResult() { Outcome = UnitTestOutcome.Failed };
-            mockPassingTestMethod.Setup(tm => tm.Invoke(args)).Returns(failingTestResult);
+            //            var failingTestResult = new TestResult() { Outcome = UnitTestOutcome.Failed };
+
+            int count = 0;
+            mockPassingTestMethod.Setup(tm => tm.Invoke(args)).Returns(() =>
+                    {
+                        TestResult t = expected[count];
+                        count++;
+                        return t;
+                    }
+            );
 
             const int RETRY_COUNT = 5;
             mockPassingTestMethod.Setup(tm => tm.GetAllAttributes(false)).Returns(() =>
@@ -165,11 +186,7 @@ namespace MSTest.TestFramework.ExtensionsTests.AttributeExTests
 
             // Assert
             mockPassingTestMethod.Verify(tm => tm.Invoke(args), Times.Exactly(RETRY_COUNT));
-            Assert.AreEqual(RETRY_COUNT, tr.Length);
-            for (int i = 0; i < RETRY_COUNT; i++)
-            {
-                Assert.AreEqual(UnitTestOutcome.Failed, tr[i].Outcome);
-            }
+            CollectionAssert.AreEqual(expected, tr);
         }
 
         [TestMethodEx]
@@ -216,20 +233,27 @@ namespace MSTest.TestFramework.ExtensionsTests.AttributeExTests
         {
             // Arrange
             var mockFlakyTestMethod = new Mock<ITestMethod>();
+            TestResult[] expected =
+                {
+                    new TestResult() { Outcome = UnitTestOutcome.Failed},
+                    new TestResult() { Outcome = UnitTestOutcome.Failed},
+                    new TestResult() { Outcome = UnitTestOutcome.Failed},
+                    new TestResult() { Outcome = UnitTestOutcome.Failed},
+                    new TestResult() { Outcome = UnitTestOutcome.Failed},
+                    new TestResult() { Outcome = UnitTestOutcome.Failed},
+                    new TestResult() { Outcome = UnitTestOutcome.Failed},
+                    new TestResult() { Outcome = UnitTestOutcome.Passed},
+                };
             var args = It.IsAny<object[]>();
             var passingTestResult = new TestResult() { Outcome = UnitTestOutcome.Passed };
             var failingTestResult = new TestResult() { Outcome = UnitTestOutcome.Failed };
 
             int count = 0;
-            const int TRIGGER = 8;
             mockFlakyTestMethod.Setup(tm => tm.Invoke(args)).Returns(() =>
                 {
+                    TestResult t = expected[count];
                     count++;
-                    if (count < TRIGGER)
-                    {
-                        return failingTestResult;
-                    }
-                    return passingTestResult;
+                    return t;
                 }
             );
 
@@ -247,11 +271,7 @@ namespace MSTest.TestFramework.ExtensionsTests.AttributeExTests
 
             // Assert
             mockFlakyTestMethod.Verify(tm => tm.Invoke(args), Times.Exactly(RETRY_COUNT));
-            Assert.AreEqual(RETRY_COUNT, tr.Length);
-            for (int i = 0; i < RETRY_COUNT; i++)
-            {
-                Assert.AreEqual(UnitTestOutcome.Failed, tr[i].Outcome);
-            }
+            CollectionAssert.IsSubsetOf(tr, expected);
         }
     }
 }
