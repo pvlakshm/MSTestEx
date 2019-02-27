@@ -16,9 +16,8 @@ namespace MSTest.TestFramework.Extensions.TestMethodEx
             // execution variations.
 
             int retryCount = 1;
-            Type eet;
-            System.Attribute[] attr = testMethod.GetAllAttributes(false);
 
+            Attribute[] attr = testMethod.GetAllAttributes(false);
             if (attr == null)
             {
                 Attribute[] r1 = testMethod.GetAttributes<RetryAttribute>(false);
@@ -39,10 +38,8 @@ namespace MSTest.TestFramework.Extensions.TestMethodEx
                 }
             }
 
-            TestResult[] results = null;
             var res = new List<TestResult>();
 
-            //////
             for (int count = 0; count < retryCount; count++)
             {
                 var testResults = base.Execute(testMethod);
@@ -60,51 +57,6 @@ namespace MSTest.TestFramework.Extensions.TestMethodEx
                     res.AddRange(testResults);
                     break;
                 }
-            }
-
-            return res.ToArray();
-            //////
-
-
-            var currentCount = 0;
-            while (currentCount < retryCount)
-            {
-                currentCount++;
-
-                try
-                {
-                    results = base.Execute(testMethod);
-                }
-                catch (Exception e)
-                {
-                    if (eet == null)
-                    {
-                        break;
-                    }
-
-                    if (e.GetType().Equals(eet) == false)
-                    {
-                        break;
-                    }
-                }
-
-                if (results == null)
-                {
-                    continue;
-                }
-
-                foreach (var testResult in results)
-                {
-                    testResult.DisplayName = $"{testMethod.TestMethodName} - Execution number {currentCount}";
-                }
-                res.AddRange(results);
-
-                if (results.Any((tr) => tr.Outcome == UnitTestOutcome.Failed))
-                {
-                    continue;
-                }
-
-                break;
             }
 
             return res.ToArray();
