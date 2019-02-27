@@ -16,8 +16,16 @@ namespace MSTest.TestFramework.Extensions.TestMethodEx
             // execution variations.
 
             int retryCount = 1;
-            Type eet = null;
-            Attribute[] attr = testMethod.GetAllAttributes(false);
+            Type eet;
+            System.Attribute[] attr = testMethod.GetAllAttributes(false);
+
+            if (attr == null)
+            {
+                Attribute[] r1 = testMethod.GetAttributes<RetryAttribute>(false);
+                var attr2 = new List<Attribute>();
+                attr2.AddRange(r1);
+                attr = attr2.ToArray();
+            }
 
             if (attr != null)
             {
@@ -25,20 +33,38 @@ namespace MSTest.TestFramework.Extensions.TestMethodEx
                 {
                     if (a is RetryAttribute)
                     {
-                        RetryAttribute retryAttr = (RetryAttribute)a;
-                        retryCount = int.Parse(retryAttr.Value);
-                    }
-
-                    if (a is ExpectedExceptionAttribute)
-                    {
-                        ExpectedExceptionAttribute eea = (ExpectedExceptionAttribute)a;
-                        eet = eea.ExceptionType;
+                        RetryAttribute retryAttr = (RetryAttribute) a;
+                        retryCount = retryAttr.Value;
                     }
                 }
             }
 
             TestResult[] results = null;
             var res = new List<TestResult>();
+
+            //////
+            for (int count = 0; count < retryCount; count++)
+            {
+                var testResults = base.Execute(testMethod);
+
+                if (testResults.Any((tr) => tr.Outcome == UnitTestOutcome.Failed))
+                {
+                    foreach (var testResult in testResults)
+                    {
+                        testResult.DisplayName = $"{testMethod.TestMethodName} - Execution attempt {count + 1}";
+                        res.AddRange(testResults);
+                    }
+                }
+                else
+                {
+                    res.AddRange(testResults);
+                    break;
+                }
+            }
+
+            return res.ToArray();
+            //////
+
 
             var currentCount = 0;
             while (currentCount < retryCount)

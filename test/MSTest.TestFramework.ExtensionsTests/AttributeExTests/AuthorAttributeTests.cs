@@ -39,6 +39,13 @@ namespace MSTest.TestFramework.ExtensionsTests.AttributeExTests
             Assert.AreEqual(UnitTestOutcome.Passed, tr[0].Outcome);
         }
 
+        [TestMethodEx]
+        [Author("John Doe")]
+        public void U_PassingTest_OneAuthorAttribute_ExecutedOnce_ReturnsPassed()
+        {
+            Assert.IsTrue(true);
+        }
+
         [TestMethod]
         public void PassingTest_MultipleAuthorAttribute_ExecutedOnce_ReturnsPassed()
         {

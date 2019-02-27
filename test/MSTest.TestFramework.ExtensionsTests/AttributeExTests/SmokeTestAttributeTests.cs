@@ -38,5 +38,12 @@ namespace MSTest.TestFramework.ExtensionsTests.AttributeExTests
             Assert.AreEqual(1, tr.Length);
             Assert.AreEqual(UnitTestOutcome.Passed, tr[0].Outcome);
         }
+
+        [TestMethodEx]
+        [SmokeTest]
+        public void U_PassingTest_OneSmokeTestAttribute_ExecutedOnce_ReturnsPassed()
+        {
+            Assert.IsTrue(true);
+        }
     }
 }
