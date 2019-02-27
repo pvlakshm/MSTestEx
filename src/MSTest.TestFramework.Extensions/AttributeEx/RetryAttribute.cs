@@ -1,5 +1,4 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace MSTest.TestFramework.Extensions.AttributeEx
 {
@@ -11,15 +10,8 @@ namespace MSTest.TestFramework.Extensions.AttributeEx
         private const int MIN_RETRY_COUNT = 1;
         private const int MAX_RETRY_COUNT = 10;
 
-        private readonly int value;
-        public int Value
-        {
-            get
-            {
-                return value;
-            }
-        }
-        
+        public int Value { get; }
+
         public RetryAttribute(int retryCount)
         {
             if (retryCount < MIN_RETRY_COUNT && MAX_RETRY_COUNT < retryCount)
@@ -27,7 +19,7 @@ namespace MSTest.TestFramework.Extensions.AttributeEx
                 retryCount = MIN_RETRY_COUNT;
             }
 
-            value = retryCount;
+            Value = retryCount;
         }
     }
 }

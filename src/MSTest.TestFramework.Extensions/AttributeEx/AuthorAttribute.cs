@@ -1,5 +1,4 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace MSTest.TestFramework.Extensions.AttributeEx
 {
@@ -8,20 +7,11 @@ namespace MSTest.TestFramework.Extensions.AttributeEx
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = false)]
     public class AuthorAttribute : Attribute
     {
-        private readonly string author;
-
         public AuthorAttribute(string name)
         {
-            author = name;
+            Value = name;
         }
 
-        public string Value
-        {
-            get
-            {
-                return author;
-            }
-
-        }
+        public string Value { get; }
     }
 }
