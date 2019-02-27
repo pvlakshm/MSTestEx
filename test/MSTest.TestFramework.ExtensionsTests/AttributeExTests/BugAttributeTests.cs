@@ -39,6 +39,13 @@ namespace MSTest.TestFramework.ExtensionsTests.AttributeExTests
             Assert.AreEqual(UnitTestOutcome.Passed, tr[0].Outcome);
         }
 
+        [TestMethodEx]
+        [Bug(171)]
+        public void U_PassingTest_OneBugAttribute_ExecutedOnce_ReturnsPassed()
+        {
+            Assert.IsTrue(true);
+        }
+
         [TestMethod]
         public void PassingTest_MultipleBugAttribute_ExecutedOnce_ReturnsPassed()
         {
@@ -67,6 +74,14 @@ namespace MSTest.TestFramework.ExtensionsTests.AttributeExTests
             mockPassingTestMethod.Verify(tm => tm.Invoke(args), Times.Once);
             Assert.AreEqual(1, tr.Length);
             Assert.AreEqual(UnitTestOutcome.Passed, tr[0].Outcome);
+        }
+
+        [TestMethodEx]
+        [Bug(171)]
+        [Bug(172)]
+        public void U_PassingTest_MultipleBugAttribute_ExecutedOnce_ReturnsPassed()
+        {
+            Assert.IsTrue(true);
         }
     }
 }
