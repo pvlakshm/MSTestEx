@@ -16,33 +16,33 @@ namespace MSTest.TestFramework.ExtensionsTests.AttributeExTests
             Assert.IsTrue(true);
         }
 
-        [TestMethodEx]
-        [Retry(2)]
-        public void FailingTest()
-        {
-            Assert.IsTrue(false);
-        }
+        //[TestMethodEx]
+        //[Retry(2)]
+        //public void FailingTest()
+        //{
+        //    Assert.IsTrue(false);
+        //}
 
-        [TestMethodEx]
-        [Ignore]
-        [Retry(2)]
-        public void IgnoredTest()
-        {
-        }
+        //[TestMethodEx]
+        //[Ignore]
+        //[Retry(2)]
+        //public void IgnoredTest()
+        //{
+        //}
 
-        [TestMethodEx]
-        [Retry(2)]
-        public void InconclusiveTest()
-        {
-            Assert.Inconclusive();
-        }
+        //[TestMethodEx]
+        //[Retry(2)]
+        //public void InconclusiveTest()
+        //{
+        //    Assert.Inconclusive();
+        //}
 
-        [TestMethodEx]
-        [Timeout(10)]
-        public void LongRunningTest()
-        {
-            System.Threading.Thread.Sleep(1000 * 11);
-        }
+        //[TestMethodEx]
+        //[Timeout(10)]
+        //public void LongRunningTest()
+        //{
+        //    System.Threading.Thread.Sleep(1000 * 11);
+        //}
 
         [TestMethodEx]
         [ExpectedException(typeof(System.DivideByZeroException))]
@@ -54,14 +54,14 @@ namespace MSTest.TestFramework.ExtensionsTests.AttributeExTests
             int val = num / denom;
         }
 
-        [TestMethodEx]
-        [Retry(2)]
-        public void FailingTestWithException()
-        {
-            int num = 1;
-            int denom = 0;
-            int val = num / denom;
-        }
+        //[TestMethodEx]
+        //[Retry(2)]
+        //public void FailingTestWithException()
+        //{
+        //    int num = 1;
+        //    int denom = 0;
+        //    int val = num / denom;
+        //}
 
 
 
