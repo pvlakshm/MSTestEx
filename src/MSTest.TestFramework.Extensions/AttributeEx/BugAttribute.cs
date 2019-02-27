@@ -1,5 +1,4 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace MSTest.TestFramework.Extensions.AttributeEx
 {
@@ -8,19 +7,11 @@ namespace MSTest.TestFramework.Extensions.AttributeEx
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = true)]
     public class BugAttribute : Attribute
     {
-        private readonly int ID;
-
         public BugAttribute(int bugId)
         {
-            ID = bugId;
+            Value = bugId;
         }
 
-        public int Value
-        {
-            get
-            {
-                return ID;
-            }
-        }
+        public int Value { get; }
     }
 }
