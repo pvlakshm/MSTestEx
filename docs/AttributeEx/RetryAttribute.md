@@ -3,6 +3,7 @@
 - If the test has an unexpected exception, it is not retried. Only assertion failures can trigger a retry.
 - A test method can be retried up to a maximum of 10 times (the input argument representing the retry count will be automatically sanitized to be within the range 1 to 10).
 - Each execution attempt is recorded as a child test.
+- In the case of data driven tests only those invocations of the test method that failed are subject to retry.
 
 ## Arguments
 input - int representing the retry count.
