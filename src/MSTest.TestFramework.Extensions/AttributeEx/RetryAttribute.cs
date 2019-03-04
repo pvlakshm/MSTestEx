@@ -3,7 +3,7 @@
 namespace MSTest.TestFramework.Extensions.AttributeEx
 {
     /// <summary>- The RetryAttribute is used on a test method to specify that it should be rerun if it fails, up to a maximum number of times.</summary>
-    /// <param name="bugId">int representing the retry count.</param>"
+    /// <param name="retryCount">int representing the retry count.</param>"
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = false)]
     public class RetryAttribute : Attribute
     {
