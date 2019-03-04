@@ -16,7 +16,7 @@ namespace MSTest.TestFramework.Extensions.AttributeEx
 
         public RepeatAttribute(int repeatCount)
         {
-            if (repeatCount < MIN_REPEAT_COUNT && MAX_REPEAT_COUNT < repeatCount)
+            if (repeatCount < MIN_REPEAT_COUNT || MAX_REPEAT_COUNT < repeatCount)
             {
                 repeatCount = MIN_REPEAT_COUNT;
             }
