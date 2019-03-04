@@ -16,6 +16,7 @@ namespace MSTest.TestFramework.Extensions.TestMethodEx
             // execution variations.
 
             int retryCount = 1;
+            int repeatCount = 1;
 
             Attribute[] attr = testMethod.GetAllAttributes(false);
             if (attr == null)
@@ -30,10 +31,14 @@ namespace MSTest.TestFramework.Extensions.TestMethodEx
             {
                 foreach (Attribute a in attr)
                 {
-                    if (a is RetryAttribute)
+                    if (a is RetryAttribute retryAttr)
                     {
-                        RetryAttribute retryAttr = (RetryAttribute) a;
                         retryCount = retryAttr.Value;
+                    }
+                    if (a is RepeatAttribute repeatAttr)
+                    {
+                        repeatCount = repeatAttr.Value;
+                        // need to add support.
                     }
                 }
             }
