@@ -14,7 +14,7 @@ namespace MSTest.TestFramework.Extensions.AttributeEx
 
         public RetryAttribute(int retryCount)
         {
-            if (retryCount < MIN_RETRY_COUNT && MAX_RETRY_COUNT < retryCount)
+            if (retryCount < MIN_RETRY_COUNT || MAX_RETRY_COUNT < retryCount)
             {
                 retryCount = MIN_RETRY_COUNT;
             }
