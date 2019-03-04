@@ -38,7 +38,7 @@ namespace MSTest.TestFramework.ExtensionsTests.AttributeExTests
         [DataRow(UnitTestOutcome.NotRunnable, 1, 1)]
         [DataRow(UnitTestOutcome.NotRunnable, 5, 1)]
         [DataRow(UnitTestOutcome.NotRunnable, 15, 1)]
-        public void RetriesForAllTestOutcomes(
+        public void RetryTestForAllTestOutcomes(
             UnitTestOutcome RequiredTestOutCome,
             int RequestedRetryCount,
             int expectedExecutionAttempts)
@@ -51,20 +51,20 @@ namespace MSTest.TestFramework.ExtensionsTests.AttributeExTests
 
             var mockTestMethod = new Mock<ITestMethod>();
             mockTestMethod.Setup(tm => tm.GetAllAttributes(false)).Returns(() =>
-            {
-                Attribute[] attr =
-                    {
+                {
+                    Attribute[] attr =
+                        {
                             new RetryAttribute(RequestedRetryCount),
-                            };
-                return attr;
-            }
+                        };
+                    return attr;
+                }
             );
 
             var args = It.IsAny<object[]>();
             mockTestMethod.Setup(tm => tm.Invoke(args)).Returns(() =>
-            {
-                return expected[0];
-            }
+                {
+                    return expected[0];
+                }
             );
 
 
