@@ -9,7 +9,8 @@ namespace MSTest.TestFramework.Extensions.TestMethodEx
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = false)]
     public class TestMethodExAttribute : TestMethodAttribute
     {
-        public override TestResult[] Execute(ITestMethod testMethod)
+        public override TestResult[] Execute(
+            ITestMethod testMethod)
         {
             // NOTE
             // This implementation will need to be refactored as we add more

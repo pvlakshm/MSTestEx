@@ -31,20 +31,20 @@ namespace MSTest.TestFramework.ExtensionsTests.AttributeExTests
 
             var mockTestMethod = new Mock<ITestMethod>();
             mockTestMethod.Setup(tm => tm.GetAllAttributes(false)).Returns(() =>
-            {
-                Attribute[] attr =
-                    {
-                        new SmokeTestAttribute()
-                    };
-                return attr;
-            }
+                {
+                    Attribute[] attr =
+                        {
+                            new SmokeTestAttribute()
+                        };
+                    return attr;
+                }
             );
 
             var args = It.IsAny<object[]>();
             mockTestMethod.Setup(tm => tm.Invoke(args)).Returns(() =>
-            {
-                return expected[0];
-            }
+                {
+                    return expected[0];
+                }
             );
 
             // Act
