@@ -48,20 +48,14 @@ namespace MSTest.TestFramework.Extensions.TestMethodEx
             for (int count = 0; count < retryCount; count++)
             {
                 var testResults = base.Execute(testMethod);
+                res.AddRange(testResults);
 
                 if (testResults.Any((tr) => tr.Outcome == UnitTestOutcome.Failed))
                 {
-                    foreach (var testResult in testResults)
-                    {
-                        testResult.DisplayName = $"{testMethod.TestMethodName} - Execution attempt {count + 1}";
-                        res.AddRange(testResults);
-                    }
+                    continue;
                 }
-                else
-                {
-                    res.AddRange(testResults);
-                    break;
-                }
+
+                break;
             }
 
             return res.ToArray();
