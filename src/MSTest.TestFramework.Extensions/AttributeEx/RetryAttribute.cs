@@ -10,8 +10,6 @@ namespace MSTest.TestFramework.Extensions.AttributeEx
         private const int MIN_RETRY_COUNT = 1;
         private const int MAX_RETRY_COUNT = 10;
 
-        public int Value { get; }
-
         public RetryAttribute(int retryCount)
         {
             if (retryCount < MIN_RETRY_COUNT || MAX_RETRY_COUNT < retryCount)
@@ -21,5 +19,7 @@ namespace MSTest.TestFramework.Extensions.AttributeEx
 
             Value = retryCount;
         }
+
+        public int Value { get; }
     }
 }

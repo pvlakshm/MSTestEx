@@ -12,8 +12,6 @@ namespace MSTest.TestFramework.Extensions.AttributeEx
         private const int MIN_REPEAT_COUNT = 1;
         private const int MAX_REPEAT_COUNT = 50;
 
-        public int Value { get; }
-
         public RepeatAttribute(int repeatCount)
         {
             if (repeatCount < MIN_REPEAT_COUNT || MAX_REPEAT_COUNT < repeatCount)
@@ -23,5 +21,7 @@ namespace MSTest.TestFramework.Extensions.AttributeEx
 
             Value = repeatCount;
         }
+
+        public int Value { get; }
     }
 }
