@@ -7,7 +7,8 @@ namespace MSTest.TestFramework.Extensions.AttributeEx
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = true)]
     public class BugAttribute : Attribute
     {
-        public BugAttribute(int bugId)
+        public BugAttribute(
+            int bugId)
         {
             Value = bugId;
         }

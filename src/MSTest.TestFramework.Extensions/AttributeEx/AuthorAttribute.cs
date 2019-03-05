@@ -7,7 +7,8 @@ namespace MSTest.TestFramework.Extensions.AttributeEx
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = false)]
     public class AuthorAttribute : Attribute
     {
-        public AuthorAttribute(string name)
+        public AuthorAttribute(
+            string name)
         {
             Value = name;
         }
