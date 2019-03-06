@@ -9,6 +9,28 @@ namespace MSTest.TestFramework.Extensions.TestMethodEx
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = false)]
     public class TestMethodExAttribute : TestMethodAttribute
     {
+        public TestResult[] executeWithRetryOnFailure(
+            ITestMethod testMethod,
+            int retryCount)
+        {
+            var res = new List<TestResult>();
+
+            for (int count = 0; count < retryCount; count++)
+            {
+                var testResults = base.Execute(testMethod);
+                res.AddRange(testResults);
+
+                if (testResults.Any((tr) => tr.Outcome == UnitTestOutcome.Failed))
+                {
+                    continue;
+                }
+
+                break;
+            }
+
+            return res.ToArray();
+        }
+
         public override TestResult[] Execute(
             ITestMethod testMethod)
         {
@@ -44,22 +66,8 @@ namespace MSTest.TestFramework.Extensions.TestMethodEx
                 }
             }
 
-            var res = new List<TestResult>();
-
-            for (int count = 0; count < retryCount; count++)
-            {
-                var testResults = base.Execute(testMethod);
-                res.AddRange(testResults);
-
-                if (testResults.Any((tr) => tr.Outcome == UnitTestOutcome.Failed))
-                {
-                    continue;
-                }
-
-                break;
-            }
-
-            return res.ToArray();
+            var res = executeWithRetryOnFailure(testMethod, retryCount);
+            return res;
         }
     }
 }
