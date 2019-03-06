@@ -2,8 +2,8 @@
 using MSTest.TestFramework.Extensions.AttributeEx;
 using MSTest.TestFramework.Extensions.TestMethodEx;
 using Moq;
-using System;
 using System.Linq;
+using System;
 
 namespace MSTest.TestFramework.ExtensionsTests.AttributeExTests
 {
