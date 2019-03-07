@@ -9,6 +9,30 @@ namespace MSTest.TestFramework.Extensions.TestMethodEx
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = false)]
     public class TestMethodExAttribute : TestMethodAttribute
     {
+        public TestResult[] executeWithRepeatAndRetry(
+            ITestMethod testMethod,
+            int repeatCount,
+            int retryCount)
+        {
+            var res = new List<TestResult>();
+
+            for (int count = 0; count < repeatCount; count++)
+            {
+                var testResults = executeWithRetryOnFailure(testMethod, retryCount);
+                res.AddRange(testResults);
+
+                if (testResults.All((tr) => tr.Outcome == UnitTestOutcome.Passed))
+                {
+                    continue;
+                }
+
+                break;
+            }
+
+            return res.ToArray();
+        }
+
+
         public TestResult[] executeWithRetryOnFailure(
             ITestMethod testMethod,
             int retryCount)
@@ -47,6 +71,10 @@ namespace MSTest.TestFramework.Extensions.TestMethodEx
                 Attribute[] r1 = testMethod.GetAttributes<RetryAttribute>(false);
                 var attr2 = new List<Attribute>();
                 attr2.AddRange(r1);
+
+                r1 = testMethod.GetAttributes<RepeatAttribute>(false);
+                attr2.AddRange(r1);
+
                 attr = attr2.ToArray();
             }
 
@@ -61,12 +89,11 @@ namespace MSTest.TestFramework.Extensions.TestMethodEx
                     if (a is RepeatAttribute repeatAttr)
                     {
                         repeatCount = repeatAttr.Value;
-                        // need to add support.
                     }
                 }
             }
 
-            var res = executeWithRetryOnFailure(testMethod, retryCount);
+            var res = executeWithRepeatAndRetry(testMethod, repeatCount, retryCount);
             return res;
         }
     }
