@@ -28,5 +28,8 @@ namespace UnitTestProject2
 }
 ```
 
+## Applies to
+MSTestEx v1.0.2
+
 ## Notes
 Filtering by this attribute is not yet supported from vstest.console.exe.

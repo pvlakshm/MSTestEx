@@ -26,3 +26,6 @@ namespace UnitTestProject2
     }
 }
 ```
+
+## Applies to
+MSTestEx v1.0.2
