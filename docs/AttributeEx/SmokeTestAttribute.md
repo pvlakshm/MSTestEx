@@ -18,7 +18,7 @@ namespace UnitTestProject2
     [TestClass]
     public class UnitTest1
     {
-        [TestMethod]
+        [TestMethodEx]
         [SmokeTest]
         public void TestMethod1()
         {
