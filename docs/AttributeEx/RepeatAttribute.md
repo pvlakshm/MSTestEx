@@ -32,5 +32,8 @@ namespace UnitTestProject1
 }
 ```
 
+## Applies to
+MSTestEx v1.0.3-preview
+
 ## Notes
  - Note that any surrounding TestInitialize and TestCleanup methods will be executed only once.
