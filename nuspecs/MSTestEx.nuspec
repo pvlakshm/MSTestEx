@@ -2,12 +2,12 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>MSTestEx</id>
-    <version>1.0.2</version>
+    <version>1.0.3-preview</version>
     <authors>pvlakshm</authors>
     <owners>pvlakshm</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>MSTest V2 Test Framework Extensions.</description>
-    <tags>Testing, MTestV2, Extensions</tags>
+    <tags>Testing, MSTestV2, Extensions, MSTest, TestFramework, Unittest, Microsoft, Test, TDD, Framework </tags>
     <projectUrl>https://github.com/pvlakshm/MSTestEx</projectUrl>
     <repository url="https://github.com/pvlakshm/MSTestEx" />
     <license type="expression">MIT</license>
