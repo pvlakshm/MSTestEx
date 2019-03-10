@@ -18,7 +18,7 @@ namespace UnitTestProject2
     [TestClass]
     public class UnitTest1
     {
-        [TestMethod]
+        [TestMethodEx]
         [Bug(101)]
         public void TestMethod1()
         {
