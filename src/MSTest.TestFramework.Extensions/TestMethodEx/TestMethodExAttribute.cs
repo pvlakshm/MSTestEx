@@ -9,7 +9,7 @@ namespace MSTest.TestFramework.Extensions.TestMethodEx
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = false)]
     public class TestMethodExAttribute : TestMethodAttribute
     {
-        public TestResult[] executeWithRepeatAndRetry(
+        private TestResult[] executeWithRepeatAndRetry(
             ITestMethod testMethod,
             int repeatCount,
             int retryCount)
@@ -33,7 +33,7 @@ namespace MSTest.TestFramework.Extensions.TestMethodEx
         }
 
 
-        public TestResult[] executeWithRetryOnFailure(
+        private TestResult[] executeWithRetryOnFailure(
             ITestMethod testMethod,
             int retryCount)
         {
