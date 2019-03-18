@@ -16,11 +16,11 @@ MSTestEx is a set of extensions to the [MSTestV2](https://github.com/Microsoft/t
  - [TestMethodExAttribute](docs/TestMethodEx/TestMethodExAttribute.md)
 
 # Contributing
-There are many ways to contribute to MSTestEx
-- [Submit issues](https://github.com/pvlakshm/MSTestEx/issues) and help verify fixes as they are checked in.
-- Review the [source code changes](https://github.com/pvlakshm/MSTestEx/pulls).
-- Contribute features and fixes.
-- Contribute to the [documentation](./docs).
+Please see the [contribution guide](./CONTRIBUTING.md) that covers the following:
+- Submitting issues.
+- Reviewing source code changes.
+- Contributing features and fixes.
+- Contributing to the documentation.
 
 # License
 MSTestEx is licensed under the [MIT license](./LICENSE).
