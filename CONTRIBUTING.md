@@ -21,3 +21,5 @@ Please create one pull request per issue and link the issue in the pull request.
 
 ## Contribute to the documentation
 Contribute to the [documentation](./docs).
+
+# Build
