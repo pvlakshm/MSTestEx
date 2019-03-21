@@ -7,8 +7,8 @@ Have you identified a reproducible problem in MSTestExV? Have a feature request?
 
 If you find your issue already exists, make relevant comments and add your reaction. Use a reaction in place of a "+1" comment:
 
-* 👍 - upvote
-* 👎 - downvote
+- 👍 - upvote
+- 👎 - downvote
 
 If you cannot find an existing issue that describes your bug or feature, create a new issue.
 
