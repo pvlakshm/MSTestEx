@@ -50,18 +50,4 @@ namespace MSTest.TestFramework.Extensions.AttributeEx
             return null;
         }
     }
-
-    // [TestClass]
-    // public class CustomDataDrivenTest
-    // {
-    //     // The custom attribute extending ITestDataSource allows you to the flexibility to provide the data
-    //     // for driving the tests, and to control the display name.
-    //     [DataTestMethod]
-    //     [CustomTestDataSource]
-    //     public void TestMethod1(int x, int y, int sum)
-    //     {
-    //         var res = x + y;
-    //         Assert.AreEqual(sum, res);
-    //     }
-    // }
 }
