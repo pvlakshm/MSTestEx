@@ -7,6 +7,7 @@
 - A ```distinct``` can be provided to have the randomizer generate distinct values. By default this will be set to ```false```.
 - Each execution attempt will be recorded as a child test.
 - As in the case of any data driven test, the execution attempts will be in sequence.
+- This approach is a custom implementation of the ```ITestDataSource``` interface (see sample implementation link below).
 
 ## Example
 The following test will be executed 10 times.
@@ -36,3 +37,6 @@ The RandomAttribute will support the following contructors:
     public RandomAttribute(double min, double max, int count);
     public RandomAttribute(float min, float max, int count);
 ```
+## Sample Implementation
+- Sample implementation: [RandomAttribute.cs](../src/MSTest.TestFramework.Extensions/AttributeEx/RandomAttribute.cs)
+- Sample usage: [RandomAttributeTests.cs](../test/MSTest.TestFramework.ExtensionsTests/AttributeExTests/RandomAttributeTests.cs)
