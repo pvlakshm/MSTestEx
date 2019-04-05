@@ -6,13 +6,13 @@ using System.Globalization;
 
 namespace MSTest.TestFramework.Extensions.AttributeEx
 {
-    public class RandomTestAttribute : Attribute, ITestDataSource
+    public class RandomAttribute : Attribute, ITestDataSource
     {
         private int _min;
         private int _max;
         private int _count;
 
-        public RandomTestAttribute(int min, int max, int count)
+        public RandomAttribute(int min, int max, int count)
         {
             _min = min;
             _max = max;

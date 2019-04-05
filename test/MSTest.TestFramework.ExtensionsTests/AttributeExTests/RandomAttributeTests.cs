@@ -7,7 +7,7 @@ namespace MSTest.TestFramework.ExtensionsTests.AttributeExTests
     public class RandomAttributeTests
     {
         [TestMethod]
-        [RandomTestAttribute(1, 2, 10)]
+        [RandomAttribute(1, 2, 10)]
         public void add(int x, int y, int sum)
         {
             int val = x + y;
