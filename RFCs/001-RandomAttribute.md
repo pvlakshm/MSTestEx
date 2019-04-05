@@ -2,9 +2,9 @@
 
 ## Summary
 - The __RandomAttribute__ can be used to specify a set of random values to be provided for an individual numeric parameter of a data driven test method.
-- A min, max range can be provided to constrain the values that are generated.
-- A count can be specified to indicate the number of values to be provided.
-- A 'distinct' can be provided to have the randomizer generate distinct values. By default this will be set to 'false'.
+- A ```min```, ```max``` range can be provided to constrain the values that are generated.
+- A ```count``` can be specified to indicate the number of values to be provided.
+- A ```distinct``` can be provided to have the randomizer generate distinct values. By default this will be set to ```false```.
 - Each execution attempt will be recorded as a child test.
 - As in the case of any data driven test, the execution attempts will be in sequence.
 
