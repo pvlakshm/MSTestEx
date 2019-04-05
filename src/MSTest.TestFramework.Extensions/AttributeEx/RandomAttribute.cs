@@ -30,13 +30,14 @@ namespace MSTest.TestFramework.Extensions.AttributeEx
         public IEnumerable<object[]> GetData(MethodInfo methodInfo)
         {
             Random r = new Random();
-            int i1 = r.Next(_min, _max);
-            int i2 = r.Next(_min, _max);
-            int sum = i1 + i2;
+            int i1 = 0;
+            int i2 = 0;
 
             for (int i = 0; i < _count; i++)
             {
-                yield return new object[] {i1, i2, sum};
+                i1 = r.Next(_min, _max);
+                i2 = r.Next(_min, _max);
+                yield return new object[] {i1, i2};
             }
         }
 
