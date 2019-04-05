@@ -8,10 +8,10 @@ namespace MSTest.TestFramework.ExtensionsTests.AttributeExTests
     {
         [TestMethod]
         [RandomAttribute(1, 2, 10)]
-        public void add(int x, int y, int sum)
+        public void add(int x, int y)
         {
-            int val = x + y;
-            Assert.AreEqual(sum, val);
+            Assert.IsTrue(1 <= x && x <= 2);
+            Assert.IsTrue(1 <= y && y <= 2);
         }
     }
 }
