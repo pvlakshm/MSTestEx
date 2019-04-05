@@ -9,7 +9,8 @@
 - As in the case of any data driven test, the execution attempts will be in sequence.
 
 ## Example
-The following test will be executed 10 times.<code>
+The following test will be executed 10 times.
+```
     [TestClass]
     public class MyClass
     {
@@ -20,10 +21,10 @@ The following test will be executed 10 times.<code>
             // ...
         }
     }
-</code>
+```
 
 The RandomAttribute will support the following contructors:
-<code>
+```
     public RandomAttribute(int min, int max, int count);
     public RandomAttribute(uint min, uint max, int count);
     public RandomAttribute(long min, long max, int count);
@@ -34,4 +35,4 @@ The RandomAttribute will support the following contructors:
     public RandomAttribute(sbyte min, sbyte max, int count);
     public RandomAttribute(double min, double max, int count);
     public RandomAttribute(float min, float max, int count);
-</code>
+```
