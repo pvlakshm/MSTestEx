@@ -8,6 +8,7 @@
 - Each execution attempt will be recorded as a child test.
 - As in the case of any data driven test, the execution attempts will be in sequence.
 - This approach is a custom implementation of the ```ITestDataSource``` interface (see sample implementation link below).
+- The built-in implementation of RandomAttribute can serve as an example of how a a set of random values can be provided for chars and strings, or any combination of parameter types as well.
 
 ## Example
 The following test will be executed 10 times.
