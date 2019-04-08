@@ -12,7 +12,7 @@ namespace MSTest.TestFramework.Extensions.AttributeEx
         private int _max;
         private int _count;
 
-        public RandomAttribute(int min, int max, int count)
+        public RandomAttribute(int min, int max, int count, bool distinct = false)
         {
             _min = min;
             _max = max;
@@ -29,6 +29,12 @@ namespace MSTest.TestFramework.Extensions.AttributeEx
         //     followed by ')'.
         public IEnumerable<object[]> GetData(MethodInfo methodInfo)
         {
+            ParameterInfo[] pars = methodInfo.GetParameters();
+            foreach (ParameterInfo p in pars)
+            {
+                Type t = p.ParameterType;
+            }
+
             Random r = new Random();
             int i1 = 0;
             int i2 = 0;
