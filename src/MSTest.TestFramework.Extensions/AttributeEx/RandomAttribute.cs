@@ -8,15 +8,11 @@ namespace MSTest.TestFramework.Extensions.AttributeEx
 {
     public class RandomAttribute : Attribute, ITestDataSource
     {
-        private int _min;
-        private int _max;
-        private int _count;
+        private RandomDataSource _src;
 
         public RandomAttribute(int min, int max, int count, bool distinct = false)
         {
-            _min = min;
-            _max = max;
-            _count = count;
+            _src = new IntRandomDataSource(min, max, count);
         }
 
         // ITestDataSource has 2 methods: GetData and GetDisplayName.
@@ -29,22 +25,7 @@ namespace MSTest.TestFramework.Extensions.AttributeEx
         //     followed by ')'.
         public IEnumerable<object[]> GetData(MethodInfo methodInfo)
         {
-            ParameterInfo[] pars = methodInfo.GetParameters();
-            foreach (ParameterInfo p in pars)
-            {
-                Type t = p.ParameterType;
-            }
-
-            Random r = new Random();
-            int i1 = 0;
-            int i2 = 0;
-
-            for (int i = 0; i < _count; i++)
-            {
-                i1 = r.Next(_min, _max);
-                i2 = r.Next(_min, _max);
-                yield return new object[] {i1, i2};
-            }
+            return _src.GetData(methodInfo);
         }
 
         public string GetDisplayName(MethodInfo methodInfo, object[] data)
@@ -55,6 +36,39 @@ namespace MSTest.TestFramework.Extensions.AttributeEx
             }
 
             return null;
+        }
+    }
+
+    abstract class RandomDataSource
+    {
+        
+        public abstract IEnumerable<object[]> GetData(MethodInfo methodInfo);
+    }
+
+    class IntRandomDataSource : RandomDataSource
+    {
+        private int _min;
+        private int _max;
+        private int _count;
+
+        public IntRandomDataSource(int min, int max, int count) {
+            _min = min;
+            _max = max;
+            _count = count;
+        }
+
+        public override IEnumerable<object[]> GetData(MethodInfo methodInfo)
+        {
+            Random r = new Random();
+            int i1 = 0;
+            int i2 = 0;
+
+            for (int i = 0; i < _count; i++)
+            {
+                i1 = r.Next(_min, _max);
+                i2 = r.Next(_min, _max);
+                yield return new object[] {i1, i2};
+            }
         }
     }
 }
