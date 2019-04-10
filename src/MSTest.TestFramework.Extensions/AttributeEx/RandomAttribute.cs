@@ -71,4 +71,31 @@ namespace MSTest.TestFramework.Extensions.AttributeEx
             }
         }
     }
+
+    class DoubleRandomDataSource : RandomDataSource
+    {
+        private double _min;
+        private double _max;
+        private int _count;
+
+        public DoubleRandomDataSource(double min, double max, int count, bool distinct) {
+            _min = min;
+            _max = max;
+            _count = count;
+        }
+
+        public override IEnumerable<object[]> GetData(MethodInfo methodInfo)
+        {
+            Random r = new Random();
+            double d1 = 0.0;
+            double d2 = 0.0;
+
+            for (int i = 0; i < _count; i++)
+            {
+                d1 = r.NextDouble() * (_max - _min) + _min;
+                d2 = r.NextDouble() * (_max - _min) + _min;
+                yield return new object[] {d1, d2};
+            }
+        }
+    }
 }
