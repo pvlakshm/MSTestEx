@@ -12,7 +12,7 @@ namespace MSTest.TestFramework.Extensions.AttributeEx
 
         public RandomAttribute(int min, int max, int count, bool distinct = false)
         {
-            _src = new IntRandomDataSource(min, max, count);
+            _src = new IntRandomDataSource(min, max, count, distinct);
         }
 
         // ITestDataSource has 2 methods: GetData and GetDisplayName.
@@ -51,7 +51,7 @@ namespace MSTest.TestFramework.Extensions.AttributeEx
         private int _max;
         private int _count;
 
-        public IntRandomDataSource(int min, int max, int count) {
+        public IntRandomDataSource(int min, int max, int count, bool distinct) {
             _min = min;
             _max = max;
             _count = count;
