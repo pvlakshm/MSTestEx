@@ -2,42 +2,39 @@
 
 ## Summary
 - The __RandomAttribute__ can be used to specify a set of random values to be provided for an individual numeric parameter of a data driven test method.
-- A ```min```, ```max``` range can be provided to constrain the values that are generated.
-- A ```count``` can be specified to indicate the number of values to be provided.
-- A ```distinct``` can be provided to have the randomizer generate distinct values. By default this will be set to ```false```.
-- Each execution attempt will be recorded as a child test.
-- As in the case of any data driven test, the execution attempts will be in sequence.
-- This approach is a custom implementation of the ```ITestDataSource``` interface (see sample implementation link below).
-- The built-in implementation of RandomAttribute can serve as an example of how a a set of random values can be provided for chars and strings, or any combination of parameter types as well.
+- A ```min```, ```max``` range can be provided to constrain the values that are generated. These will be integer values.
+- In the case where the parameter type is integral, an integral random value within the given range will be generated and cast to the parameter type.
+- In the case where the parameter type is floating point, a double precision random value within the given range will be generated and cast to the parameter type.
+- The RandomAttribute will compose with the __RetryAttribute__, __RepeatAttribute__, and any other attributes supported on a ``[TestMethodEx]```.
+
+Note
+- This approach is a custom implementation of the ```ITestDataSource``` interface.
+- This built-in implementation of RandomAttribute can serve as an example of how a set of random values can be provided for chars and strings, or any user defined types as well.
 
 ## Example
-The following test will be executed 10 times.
 ```
     [TestClass]
     public class MyClass
     {
-        [TestMethod]
-        [RandomAttribute(1, 2, 10)]
+        [TestMethodEx]
+        [RandomAttribute(2, 5)]
         public void add(int x, int y)
         {
-            // ...
+            // x, y will have a value >= 2 and < 5
+        }
+
+        [TestMethodEx]
+        [RandomAttribute(2, 5)]
+        public void add(byte x, int y, long z)
+        {
+            // x, y, z will have a value >= 2 and < 5
+        }
+
+        [TestMethodEx]
+        [RandomAttribute(2, 5)]
+        public void add(float x, double y)
+        {
+            // x, y will have a value >= 2.0 and < 5.0 (within floating point tolerances)
         }
     }
 ```
-
-The RandomAttribute will support the following contructors:
-```
-    public RandomAttribute(int min, int max, int count);
-    public RandomAttribute(uint min, uint max, int count);
-    public RandomAttribute(long min, long max, int count);
-    public RandomAttribute(ulong min, ulong max, int count);
-    public RandomAttribute(short min, short max, int count);
-    public RandomAttribute(ushort min, ushort max, int count);
-    public RandomAttribute(byte min, byte max, int count);
-    public RandomAttribute(sbyte min, sbyte max, int count);
-    public RandomAttribute(double min, double max, int count);
-    public RandomAttribute(float min, float max, int count);
-```
-## Sample Implementation
-- Sample implementation: [RandomAttribute.cs](../src/MSTest.TestFramework.Extensions/AttributeEx/RandomAttribute.cs)
-- Sample usage: [RandomAttributeTests.cs](../test/MSTest.TestFramework.ExtensionsTests/AttributeExTests/RandomAttributeTests.cs)
