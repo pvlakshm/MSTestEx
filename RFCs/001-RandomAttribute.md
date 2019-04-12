@@ -5,7 +5,7 @@
 - A ```min```, ```max``` range can be provided to constrain the values that are generated. These will be integer values.
 - In the case where the parameter type is integral, an integral random value within the given range will be generated and cast to the parameter type.
 - In the case where the parameter type is floating point, a double precision random value within the given range will be generated and cast to the parameter type.
-- The RandomAttribute will compose with the __RetryAttribute__, __RepeatAttribute__, and any other attributes supported on a ``[TestMethodEx]```.
+- The RandomAttribute will compose with the __RetryAttribute__, __RepeatAttribute__, and any other attributes supported on a ```[TestMethodEx]```.
 
 Note
 - This approach is a custom implementation of the ```ITestDataSource``` interface.
