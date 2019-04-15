@@ -8,11 +8,20 @@ namespace MSTest.TestFramework.Extensions.AttributeEx
 {
     public class RandomAttribute : Attribute, ITestDataSource
     {
-        private RandomDataSource _src;
+        private int _min;
+        private int _max;
 
-        public RandomAttribute(int min, int max, int count, bool distinct = false)
+        public RandomAttribute(
+            int min,
+            int max)
         {
-            _src = new IntRandomDataSource(min, max, count, distinct);
+            if (max <= min)
+            {
+                throw new Exception("RandomAttribute bounds specification error");
+            }
+
+            _min = min;
+            _max = max;
         }
 
         // ITestDataSource has 2 methods: GetData and GetDisplayName.
@@ -25,7 +34,53 @@ namespace MSTest.TestFramework.Extensions.AttributeEx
         //     followed by ')'.
         public IEnumerable<object[]> GetData(MethodInfo methodInfo)
         {
-            return _src.GetData(methodInfo);
+            /*
+            first, find out how many params need to be returned, and the type of each param.
+            Next for each param that needs to be returned,
+                generate a random value and store it in a variable of the associated Type
+
+            Finally, make an object array of all such vars and return it.
+            */
+            ParameterInfo[] paramImnfo = methodInfo.GetParameters();
+            int numOfParams = paramImnfo.Length;
+
+            if (numOfParams == 0)
+            {
+                yield return null;
+            }
+
+            Type[] paramTypes = new Type[numOfParams];
+            for (int i = 0; i < numOfParams; i++)
+            {
+                paramTypes[i] = paramImnfo[i].ParameterType;
+            }
+
+            object[] pars = new object[numOfParams];
+            RandomDataSource _src = new RandomDataSource();
+
+            for (int i = 0; i < numOfParams; i++)
+            {
+                if (paramTypes[i] == typeof(int) ||
+                    paramTypes[i] == typeof(uint) ||
+                    paramTypes[i] == typeof(short) ||
+                    paramTypes[i] == typeof(ushort) ||
+                    paramTypes[i] == typeof(byte) ||
+                    paramTypes[i] == typeof(long) ||
+                    paramTypes[i] == typeof(ulong))
+                {
+                    int val = _src.GetNextInt(_min, _max);
+                    pars[i] = Convert.ChangeType(val, paramTypes[i]);
+                }
+                else if (paramTypes[i] == typeof(float) ||
+                        paramTypes[i] == typeof(double))
+                {
+                    double val = _src.GetNextDouble(_min, _max);
+                    pars[i] = Convert.ChangeType(val, paramTypes[i]);
+                }
+
+            }
+
+            yield return pars;
         }
 
         public string GetDisplayName(MethodInfo methodInfo, object[] data)
@@ -39,63 +94,24 @@ namespace MSTest.TestFramework.Extensions.AttributeEx
         }
     }
 
-    abstract class RandomDataSource
+    class RandomDataSource
     {
-        
-        public abstract IEnumerable<object[]> GetData(MethodInfo methodInfo);
-    }
-
-    class IntRandomDataSource : RandomDataSource
-    {
-        private int _min;
-        private int _max;
-        private int _count;
-
-        public IntRandomDataSource(int min, int max, int count, bool distinct) {
-            _min = min;
-            _max = max;
-            _count = count;
-        }
-
-        public override IEnumerable<object[]> GetData(MethodInfo methodInfo)
+        public int GetNextInt(int min, int max)
         {
             Random r = new Random();
-            int i1 = 0;
-            int i2 = 0;
-
-            for (int i = 0; i < _count; i++)
-            {
-                i1 = r.Next(_min, _max);
-                i2 = r.Next(_min, _max);
-                yield return new object[] {i1, i2};
-            }
-        }
-    }
-
-    class DoubleRandomDataSource : RandomDataSource
-    {
-        private double _min;
-        private double _max;
-        private int _count;
-
-        public DoubleRandomDataSource(double min, double max, int count, bool distinct) {
-            _min = min;
-            _max = max;
-            _count = count;
+            int i1 = r.Next(min, max);
+            return i1;
         }
 
-        public override IEnumerable<object[]> GetData(MethodInfo methodInfo)
+        public double GetNextDouble(int min, int max)
         {
-            Random r = new Random();
-            double d1 = 0.0;
-            double d2 = 0.0;
+            double dmin = (double) min;
+            double dmax = (double) max;
 
-            for (int i = 0; i < _count; i++)
-            {
-                d1 = r.NextDouble() * (_max - _min) + _min;
-                d2 = r.NextDouble() * (_max - _min) + _min;
-                yield return new object[] {d1, d2};
-            }
+            Random r = new Random();
+            double d1 = r.NextDouble() * (dmax - dmin) + dmin;
+
+            return d1;
         }
     }
 }
