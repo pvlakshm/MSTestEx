@@ -11,6 +11,7 @@ MSTestEx is a set of extensions to the [MSTestV2](https://github.com/Microsoft/t
  - [SmokeTestAttribute](docs/AttributeEx/SmokeTestAttribute.md)
  - [RetryAttribute](docs/AttributeEx/RetryAttribute.md)
  - [RepeatAttribute](docs/AttributeEx/RepeatAttribute.md)
+ - [RandomAttribute](docs/AttributeEx/RandomAttribute.md)
 
 ## TestMethod Extensions
  - [TestMethodExAttribute](docs/TestMethodEx/TestMethodExAttribute.md)
