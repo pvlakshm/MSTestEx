@@ -39,5 +39,5 @@ Note
     }
 ```
 ## Status
-Implemented as #151, #152.
+Implemented as #151, #152.  
 Shipping in MSTestEx v1.0.4-preiview.

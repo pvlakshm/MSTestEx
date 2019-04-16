@@ -5,8 +5,8 @@
 - In the case where the parameter type is floating point, a double precision random value within the given range will be generated and cast to the parameter type.
 
 ## Arguments
-min - int representing the inclsuive lower bound of the random number generated.
-max - int representing the exclusive upper bound of the random number generated.
+- min - int representing the inclusive lower bound of the random number generated.
+- max - int representing the exclusive upper bound of the random number generated.
 
 ## Usage
 - add a NuGet reference to the MSTestEx package.
