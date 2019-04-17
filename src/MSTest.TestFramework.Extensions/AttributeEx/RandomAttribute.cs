@@ -6,6 +6,9 @@ using System.Globalization;
 
 namespace MSTest.TestFramework.Extensions.AttributeEx
 {
+    /// <summary>The RandomAttribute is used to specify a set of random values to be provided for an individual numeric parameter of a data driven test method. Random value within the given range will be generated and cast to the parameter types.</summary>
+    /// <param name="min">int representing the inclusive lower bound of the random number generated.</param>"
+    /// <param name="max">int representing the exclusive lower bound of the random number generated.</param>"
     public class RandomAttribute : Attribute, ITestDataSource
     {
         private int _min;
