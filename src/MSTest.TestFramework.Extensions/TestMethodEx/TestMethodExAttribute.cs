@@ -86,6 +86,7 @@ namespace MSTest.TestFramework.Extensions.TestMethodEx
                     {
                         retryCount = retryAttr.Value;
                     }
+
                     if (a is RepeatAttribute repeatAttr)
                     {
                         repeatCount = repeatAttr.Value;
