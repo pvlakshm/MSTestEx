@@ -6,7 +6,6 @@
 - If a test method is rerun (because if failed), and passes in subsequently, the overall result is still reported as failed.
 - In the case of data driven tests only those invocations of the test method that failed are subject to retry. For retries of data driven tests, the execution attempt number is not shown as part of the test method's display name.
 
-
 ## Arguments
 input - int representing the retry count.
 
