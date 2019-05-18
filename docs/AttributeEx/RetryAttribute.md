@@ -3,7 +3,7 @@
 - Only tests with an outcome of "Failed", can trigger a retry. For the complete set of possible test outcomes see [here](https://github.com/Microsoft/testfx/blob/master/src/TestFramework/MSTest.Core/UnitTestOutcome.cs).
 - A test method can be retried up to a maximum of 10 times (the input argument representing the retry count will be automatically sanitized to be within the range 1 to 10).
 - Each execution attempt is recorded as a child test.
-- If a test method is rereun (because if failed), and passes in subsequently, the overall result is still reported as failed.
+- If a test method is rerun (because if failed), and passes in subsequently, the overall result is still reported as failed.
 - In the case of data driven tests only those invocations of the test method that failed are subject to retry. For retries of data driven tests, the execution attempt number is not shown as part of the test method's display name.
 
 
