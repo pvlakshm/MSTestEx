@@ -1,6 +1,7 @@
 # MSTestEx - MSTest V2 Test Framework Extensions
 [![Build status](https://pvlakshm.visualstudio.com/MSTestEx/_apis/build/status/MSTestEx-.NET%20Desktop-CI)](https://pvlakshm.visualstudio.com/MSTestEx/_build/latest?definitionId=95)
-[![NuGet](https://img.shields.io/nuget/vpre/MSTestEx.svg?style=flat)](https://www.nuget.org/packages?q=mstestex) [![Join the chat at https://gitter.im/MSTestEx/community](https://badges.gitter.im/MSTestEx/community.svg)](https://gitter.im/MSTestEx/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![NuGet](https://img.shields.io/nuget/vpre/MSTestEx.svg?style=flat)](https://www.nuget.org/packages?q=mstestex)
+[![Join the chat at https://gitter.im/MSTestEx/community](https://badges.gitter.im/MSTestEx/community.svg)](https://gitter.im/MSTestEx/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 MSTestEx is a set of extensions to the [MSTestV2](https://github.com/Microsoft/testfx) Test Framework.
 
