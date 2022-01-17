@@ -24,14 +24,14 @@ Contribute to the [documentation](./docs).
 
 # Build
 ## Dependencies
-- MSTest Test Framework v1.2.0
-- DotNet Core 1.0
+- MSTest Test Framework
+- .NET Core
 
-### MSTest Test Framework v1.2.0
-The MSTestEx solution already contains a NuGet reference to the MSTest Test Framework v1.2.0.
+### MSTest Test Framework
+The MSTestEx solution already contains a NuGet reference to the MSTest Test Framework v2.2.8 package.
 
-### Dotnet Core 1.0
-Install DotNet Core from here: [.NET Core 1.0](https://dotnet.microsoft.com/download/dotnet-core/1.0) (for e.g. you may use the following version: v1.0.12)
+### .NET Core
+Install DotNet Core from here: [.NET Core 5.0](https://dotnet.microsoft.com/download/dotnet/5.0)
 
 ## Building MSTestEx
 Run the following commands to build MSTestEx
